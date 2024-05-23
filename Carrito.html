@@ -1,0 +1,185 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Carrito | Trekking Travel</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload no-sidebar">
+		<div id="page-wrapper">
+
+			
+				<div id="header-wrapper">
+					<header id="header" class="container">
+
+						<!-- Logo -->
+							<div id="logo">
+								<h1><a href="index.html" class="image fit"><img src="images/logowebturismo.png" alt="tt" width="90" height="90"/></a></h1>
+								
+							</div>
+
+						<!-- Navbar -->
+						<nav id="nav">
+							<ul>
+								<li class="current"><a href="index.html">Bienvenido/a</a></li>
+								
+								<li><a href="quienes-somos.html">¿Quiénes somos?</a></li>
+								<li>
+									<a href="nuestros-servicios.html">Servicios</a>
+										<ul>
+											<li><a href="zona-norte.html">Zona Norte</a></li>
+											<li><a href="zona-centro.html">Zona Centro</a></li>
+											<li><a href="zona-sur.html">Zona Sur</a></li>
+											
+										</ul>
+								</li>
+								<li><a href="clima-centro.html">Consulta el clima</a>
+										<ul>
+											<li><a href="clima-norte.html">Clima zona Norte</a></li>
+											<li><a href="clima-centro.html">Clima zona Centro</a></li>
+											<li><a href="clima-sur.html">Clima zona Sur</a></li>
+											
+										</ul>
+								
+								</li>
+								<li><a href="Contacto.html">Contactanos</a></li>
+								<li>
+									<a href="Carrito.html" id="cart">
+									<i class="fas fa-shopping-cart"></i> Carrito <span class="badge">0</span>
+									</a>
+								</li>
+							</ul>
+						</nav>
+
+					</header>
+				</div>
+
+			<!-- Main -->
+				<div id="main-wrapper">
+					<div class="container">
+						<div id="content">
+
+							<!-- Contenido -->
+								<article>
+									<div class="container">
+										<div id="cart-items"></div>
+										<div class="empty-cart" id="empty-cart">Tu carrito está vacío</div>
+									</div>
+									
+								</article>
+
+						</div>
+					</div>
+				</div>
+
+			
+			<div id="footer-wrapper">
+				<footer id="footer" class="container">
+					<div class="row">
+						
+						<div class="col-12">
+
+							<!-- Contacto -->
+								<section class="widget contact">
+									<h3>¡Sigue nuestras redes sociales!</h3>
+									<ul>
+										<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>											
+										<li><a href="#" class="icon brands fa-pinterest"><span class="label">Pinterest</span></a></li>
+									</ul>
+									
+								</section>
+
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-12">
+							<div id="copyright">
+								<ul class="menu">
+									<li>&copy; Trekking Lavel LTDA | Todos los derechos reservados</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</footer>
+			</div> 
+
+		</div>
+
+		<!-- Scripts -->
+			<script>
+				document.addEventListener("DOMContentLoaded", function() {
+					// Actualiza el carrito al cargar la página
+					updateCart();
+				
+					// Función para actualizar el carrito
+					function updateCart() {
+						var cart = JSON.parse(localStorage.getItem("cart")) || [];
+						var cartItemsElement = document.getElementById("cart-items");
+						var emptyCartElement = document.getElementById("empty-cart");
+				
+						// Limpia el contenido anterior del carrito
+						cartItemsElement.innerHTML = "";
+				
+						// Si el carrito está vacío, muestra un mensaje
+						if (cart.length === 0) {
+							emptyCartElement.style.display = "block";
+							return;
+						} else {
+							emptyCartElement.style.display = "none";
+						}
+				
+						// Itera sobre los elementos del carrito y muestra cada elemento
+						cart.forEach(function(item) {
+							var cartItemElement = document.createElement("div");
+							cartItemElement.classList.add("cart-item");
+							cartItemElement.innerHTML = `
+								<h1><img src="images/cart.png"  alt="${item.name}"></h1>
+								<h3>${item.name}</h3>
+								<p>$${item.price.toFixed(2)}</p>
+								<button class="remove-from-cart" data-name="${item.name}">Eliminar</button>
+							`;
+							cartItemsElement.appendChild(cartItemElement);
+						});
+				
+						// Actualiza el número de elementos en el ícono del carrito
+						updateCartBadge(cart.length);
+				
+						// Maneja clics en los botones "Eliminar"
+						var removeFromCartButtons = document.querySelectorAll(".remove-from-cart");
+						removeFromCartButtons.forEach(function(button) {
+							button.addEventListener("click", function() {
+								removeFromCart(button.dataset.name);
+							});
+						});
+					}
+				
+					// Función para eliminar un producto del carrito
+					function removeFromCart(name) {
+						var cart = JSON.parse(localStorage.getItem("cart")) || [];
+						var updatedCart = cart.filter(function(item) {
+							return item.name !== name;
+						});
+						localStorage.setItem("cart", JSON.stringify(updatedCart));
+						updateCart();
+					}
+				
+					// Función para actualizar el número de elementos en el ícono del carrito
+					function updateCartBadge(quantity) {
+						var badge = document.querySelector("#cart .badge");
+						badge.textContent = quantity;
+					}
+				});
+			</script>
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

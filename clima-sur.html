@@ -1,0 +1,187 @@
+<!DOCTYPE HTML>
+<!--
+	Verti by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Clima | Trekking Travel</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<link rel="stylesheet" href="assets/css/clima.css">
+		<link rel="stylesheet" href="assets/css/stylemodal.css">
+		<script src="assets/js/jquery.min.js"></script>
+	</head>
+	<body class="is-preload no-sidebar">
+		<div id="page-wrapper">
+
+			<!-- Header -->
+				<div id="header-wrapper">
+					<header id="header" class="container">
+
+						<!-- Logo -->
+							<div id="logo">
+								<h1><a href="index.html" class="image fit"><img src="images/logowebturismo.png" alt="tt" width="90" height="90"/></a></h1>
+								
+							</div>
+
+						<!-- Nav -->
+						<nav id="nav">
+							<ul>
+								<li class="current"><a href="index.html">Bienvenido/a</a></li>
+								
+								<li><a href="quienes-somos.html">¿Quiénes somos?</a></li>
+								<li>
+									<a href="nuestros-servicios.html">Servicios</a>
+										<ul>
+											<li><a href="zona-norte.html">Zona Norte</a></li>
+											<li><a href="zona-centro.html">Zona Centro</a></li>
+											<li><a href="zona-sur.html">Zona Sur</a></li>
+											
+										</ul>
+								</li>
+								<li><a href="clima-centro.html">Consulta el clima</a>
+										<ul>
+											<li><a href="clima-norte.html">Clima zona Norte</a></li>
+											<li><a href="clima-centro.html">Clima zona Centro</a></li>
+											<li><a href="clima-sur.html">Clima zona Sur</a></li>
+											
+										</ul>
+								
+								</li>
+								<li><a href="Contacto.html">Contactanos</a></li>
+								<li>
+									<a href="Carrito.html" id="cart">
+									<i class="fas fa-shopping-cart"></i> Carrito <span class="badge">0</span>
+									</a>
+								</li>
+							</ul>
+						</nav>
+
+					</header>
+				</div>
+
+			<!-- Main -->
+				<div id="main-wrapper">
+					<div class="container">
+						<div id="content">
+							<div id="modal" class="modal">
+								<div class="modal-content">
+									<span class="close">&times;</span>
+									<div id="pro2">
+
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+				</div>
+
+			<!-- Footer -->
+				<div id="footer-wrapper">
+					<footer id="footer" class="container">
+						<div class="row">
+							
+							<div class="col-3 col-6-medium col-12-small">
+
+								<!-- Contact -->
+								<section class="widget contact last">
+									<h3>¡Sigue nuestras redes sociales!</h3>
+									
+									<ul>
+										<li><a href="#" class="icon brands fa-twitter"><span class="label">Twitter</span></a></li>
+										<li><a href="#" class="icon brands fa-facebook-f"><span class="label">Facebook</span></a></li>
+										<li><a href="#" class="icon brands fa-instagram"><span class="label">Instagram</span></a></li>
+										<li><a href="#" class="icon brands fa-pinterest"><span class="label">Pinterest</span></a></li>
+									
+								</section>
+
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12">
+								<div id="copyright">
+									<ul class="menu">
+										<li>&copy; Trekking Lavel LTDA | Todos los derechos reservados</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</footer>
+				</div>
+
+			</div>
+
+		<!-- Scripts -->
+			<script>
+				const settings = {
+					async: true,
+					crossDomain: true,
+					url: 'https://yahoo-weather5.p.rapidapi.com/weather?location=Magallanes%20Province&format=json&u=c',
+					method: 'GET',
+					headers: {
+						'X-RapidAPI-Key': '63d4c1ee06mshe93a490b8684886p15fd38jsnc2658c4a4e31',
+						'X-RapidAPI-Host': 'yahoo-weather5.p.rapidapi.com'
+					}
+				};
+
+				$.ajax(settings).done(function (response) {
+					console.log(response.forecasts);
+					console.log(response.current_observation);
+					$.each(response.forecasts, function (i,item) {
+						$("#pro2").append(`<article class="box weather">
+										<div class="icon bubble black">
+										  <div class="spin">
+											<img src="images/healht.png">
+										  </div>
+										</div>
+										
+										<h1>${item.day}</h1>
+										
+										<span class="high-low">${item.low}° baja / ${item.high}° alta</span>
+									  </article>`)
+					})
+				});
+			</script>
+			
+			<script>
+								// Obtener el modal
+				var modal = document.getElementById("modal");
+
+				// Obtener el elemento <span> que cierra el modal
+				var span = document.getElementsByClassName("close")[0];
+
+				// Función para mostrar el modal
+				function showModal() {
+					modal.style.display = "block";
+				}
+
+				// Función para cerrar el modal
+				span.onclick = function() {
+					modal.style.display = "none";
+				}
+
+				// Cerrar el modal si el usuario hace clic fuera del contenido del modal
+				window.onclick = function(event) {
+					if (event.target == modal) {
+						modal.style.display = "none";
+					}
+				}
+
+				// Mostrar el modal al cargar la página
+				window.onload = function() {
+					showModal();
+				}
+
+			</script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
